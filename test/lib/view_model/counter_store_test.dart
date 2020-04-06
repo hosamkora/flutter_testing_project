@@ -6,7 +6,6 @@ void main() {
   // prepare all deps
   configure();
   CounterStore counterStore;
-  getIt.get<CounterStore>();
 
   setUp(() {
     counterStore = getIt.get<CounterStore>();
@@ -19,11 +18,12 @@ void main() {
 
   test('test counter model dec', () {
     counterStore.dec();
-    expect(counterStore.counter, 0);
+    expect(counterStore.counter, -1);
   });
 
   tearDown(() {
     counterStore.dispose();
-    getIt.unregister(instance: counterStore);
+    getIt.reset();
+    configure();
   });
 }
